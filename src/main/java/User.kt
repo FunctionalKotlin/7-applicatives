@@ -18,10 +18,13 @@ enum class UserError {
 
 fun createUser(
     name: String, password: String, premium: Boolean,
-    newsletter: Boolean): Result<User, UserError> =
+    newsletter: Boolean): Result<User, UserError> {
+
+    val result = ::User.curried() map
+        Name(name) ap
+        Password(password) ap
+        pure(premium) ap
         pure(newsletter)
-            .apply(pure(premium)
-                .apply(Password(password)
-                    .apply(Name(name)
-                        .map(::User.curried()))))
-            .flatMap(Premium or Newsletter)
+
+    return result.flatMap(Premium or Newsletter)
+}
