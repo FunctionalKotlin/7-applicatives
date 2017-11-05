@@ -13,12 +13,13 @@ enum class UserError {
 
 fun createUser(
     name: String, password: String, premium: Boolean,
-    newsletter: Boolean): Result<User, UserError> =
-        """TRY TO CREATE A USER, USING:
+    newsletter: Boolean): Result<User, UserError> {
+        val result = """TRY TO CREATE A USER, USING:
             AS `name`,       THE RESULT OF VALIDATE "name"
             AS `password`,   THE RESULT OF VALIDATING "password"
             AS `premium`,    THE RESULT OF VALIDATING "premium"
-            AS `newsletter`, THE RESULT OF VALIDATING "newsletter"
+            AS `newsletter`, THE RESULT OF VALIDATING "newsletter""""
 
-            IF THE USER CREATION HAS FAILED, RETURN THE FAILURE;
+        return """IF THE USER CREATION HAS FAILED, RETURN THE FAILURE;
             IF NOT, RETURN THE USER."""
+    }
