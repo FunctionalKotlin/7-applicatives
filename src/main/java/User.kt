@@ -7,6 +7,15 @@ data class User(
     val name: String, val password: String,
     val premium: Boolean, val newsletter: Boolean)
 
+fun curriedConstructor(name: String): (String) -> (Boolean) -> (Boolean) -> User =
+    { password ->
+        { premium ->
+            { newsletter ->
+                User(name, password, premium, newsletter)
+            }
+        }
+    }
+
 enum class UserError {
     USERNAME_OUT_OF_BOUNDS,
     PASSWORD_TOO_SHORT,
