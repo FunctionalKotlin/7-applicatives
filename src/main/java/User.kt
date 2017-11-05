@@ -8,15 +8,6 @@ data class User(
     val name: String, val password: String,
     val premium: Boolean, val newsletter: Boolean)
 
-fun curriedConstructor(name: String): (String) -> (Boolean) -> (Boolean) -> User =
-    { password ->
-        { premium ->
-            { newsletter ->
-                User(name, password, premium, newsletter)
-            }
-        }
-    }
-
 enum class UserError {
     USERNAME_OUT_OF_BOUNDS,
     PASSWORD_TOO_SHORT,
@@ -28,8 +19,8 @@ fun createUser(
     name: String, password: String, premium: Boolean,
     newsletter: Boolean): Result<User, UserError> {
         val result: Result<User, UserError> =
-            Name(name).map(curriedConstructor(::User))
-    
+            Name(name).map(::User.curried())
+
             """AS `password`,   THE RESULT OF VALIDATING "password"
             AS `premium`,    pure(premium)
             AS `newsletter`, pure(newsletter)"""
