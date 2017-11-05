@@ -25,3 +25,22 @@ inline fun <reified A: Any> JsonObject
     return (value as? A)?.let(::Success)
         ?: notCastable<A>(key)
 }
+
+fun JsonObject.toUser(): Result<User, ParseError> =
+    ::User.curried() map
+        getValue("username") ap
+        getValue("password") ap
+        getValue("premium") ap
+        getValue("newsletter")
+
+fun main(args: Array<String>) {
+    val json = """{
+        "password": "123",
+        "premium": true,
+        "newsletter": false
+    }"""
+
+    val jsonObject = parse(json)
+
+    println(jsonObject.toUser())
+}
