@@ -1,5 +1,6 @@
 // Copyright © FunctionalKotlin.com 2017. All rights reserved.
 
+import Validators.Name
 import Validators.Newsletter
 import Validators.Premium
 
@@ -26,9 +27,10 @@ enum class UserError {
 fun createUser(
     name: String, password: String, premium: Boolean,
     newsletter: Boolean): Result<User, UserError> {
-        val result: Result<User, UserError> = """TRY TO CREATE A USER, USING:
-            AS `name`,       THE RESULT OF VALIDATE "name"
-            AS `password`,   THE RESULT OF VALIDATING "password"
+        val result: Result<User, UserError> =
+            Name(name).map(curriedConstructor(::User))
+    
+            """AS `password`,   THE RESULT OF VALIDATING "password"
             AS `premium`,    pure(premium)
             AS `newsletter`, pure(newsletter)"""
 
