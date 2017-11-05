@@ -18,3 +18,5 @@ fun <A, E, B> Result<A, E>.flatMap(
 fun <A, E> Result<A, E>.ifSuccess(execute: (A) -> Unit) {
     if (this is Success) execute(this.value)
 }
+
+fun <A, E> pure(a: A): Result<A, E> = Success(a)
