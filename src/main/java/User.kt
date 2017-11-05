@@ -20,12 +20,12 @@ fun createUser(
     name: String, password: String, premium: Boolean,
     newsletter: Boolean): Result<User, UserError> {
         val result: Result<User, UserError> =
-            Password(password)
-                .apply(Name(name)
-                    .map(::User.curried()))
+            pure(premium)
+                .apply(Password(password)
+                    .apply(Name(name)
+                        .map(::User.curried())))
 
-            """AS `premium`,    pure(premium)
-            AS `newsletter`, pure(newsletter)"""
+            """AS `newsletter`, pure(newsletter)"""
 
         return result.flatMap(Premium or Newsletter)
     }
