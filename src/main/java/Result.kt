@@ -30,3 +30,6 @@ infix fun <A, B, E> ((A) -> B).map(
 
 infix fun <A, B, E> Result<(A) -> B, E>.ap(
     result: Result<A, E>): Result<B, E> = result.apply(this)
+
+infix fun <A, E, B> Result<A, E>.bind(
+    transform: (A) -> Result<B, E>): Result<B, E> = flatMap(transform)
