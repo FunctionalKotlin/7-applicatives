@@ -14,5 +14,5 @@ data class NotCastable<A: Any>(val key: String, val type: KClass<A>): ParseError
 
 fun notFound(key: String): Failure<NotFound> = Failure(NotFound(key))
 
-fun <A: Any> notCastable(key: String): Failure<NotCastable<A>> =
+inline fun <reified A: Any> notCastable(key: String): Failure<NotCastable<A>> =
     Failure(NotCastable(key, A::class))
