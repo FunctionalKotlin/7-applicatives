@@ -27,12 +27,12 @@ fun <A, E> allOf(vararg validators: Validator<A, E>): Validator<A, E> =
     validators.fold(::Success) { acc, validator -> acc + validator }
 
 object Validators {
-    val Name: Validator<User, UserError> =
-        validate<User> { !it.name.isEmpty() && it.name.length <= 15 }
+    val Name: Validator<String, UserError> =
+        validate<String>(with = { !it.isEmpty() && it.length <= 15 })
             .orElseFail(with = UserError.USERNAME_OUT_OF_BOUNDS)
 
-    val Password: Validator<User, UserError> =
-        validate<User> { it.password.length > 10 }
+    val Password: Validator<String, UserError> =
+        validate<String>(with = { it.length >= 10 })
             .orElseFail(with = UserError.PASSWORD_TOO_SHORT)
 
     val Premium: Validator<User, UserError> =

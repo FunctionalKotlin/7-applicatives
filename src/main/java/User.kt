@@ -1,10 +1,5 @@
 // Copyright © FunctionalKotlin.com 2017. All rights reserved.
 
-import Validators.Name
-import Validators.Newsletter
-import Validators.Password
-import Validators.Premium
-
 data class User(
     val name: String, val password: String,
     val premium: Boolean, val newsletter: Boolean)
@@ -19,5 +14,11 @@ enum class UserError {
 fun createUser(
     name: String, password: String, premium: Boolean,
     newsletter: Boolean): Result<User, UserError> =
-        User(name, password, premium, newsletter)
-            .let(allOf(Name, Password, (Premium or Newsletter)))
+        """TRY TO CREATE A USER, USING:
+            AS `name`,       THE RESULT OF VALIDATE "name"
+            AS `password`,   THE RESULT OF VALIDATING "password"
+            AS `premium`,    THE RESULT OF VALIDATING "premium"
+            AS `newsletter`, THE RESULT OF VALIDATING "newsletter"
+
+            IF THE USER CREATION HAS FAILED, RETURN THE FAILURE;
+            IF NOT, RETURN THE USER."""
