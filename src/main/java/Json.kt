@@ -16,3 +16,12 @@ fun notFound(key: String): Failure<NotFound> = Failure(NotFound(key))
 
 inline fun <reified A: Any> notCastable(key: String): Failure<NotCastable<A>> =
     Failure(NotCastable(key, A::class))
+
+inline fun <reified A: Any> JsonObject
+    .getValue(key: String): Result<A, ParseError> {
+
+    val value = this[key] ?: return notFound(key)
+
+    return (value as? A)?.let(::Success)
+        ?: notCastable<A>(key)
+}
