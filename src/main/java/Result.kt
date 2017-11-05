@@ -15,6 +15,10 @@ fun <A, E, B> Result<A, E>.flatMap(
         is Failure -> this
     }
 
+fun <A, B, E> Result<A, E>.apply(
+    resultAB: Result<(A) -> B, E>): Result<B, E> =
+        flatMap { a -> resultAB.map { it(a) } }
+
 fun <A, E> Result<A, E>.ifSuccess(execute: (A) -> Unit) {
     if (this is Success) execute(this.value)
 }
