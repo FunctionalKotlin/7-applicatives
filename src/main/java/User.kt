@@ -17,9 +17,9 @@ fun createUser(
         val result = """TRY TO CREATE A USER, USING:
             AS `name`,       THE RESULT OF VALIDATE "name"
             AS `password`,   THE RESULT OF VALIDATING "password"
-            AS `premium`,    THE RESULT OF VALIDATING "premium"
-            AS `newsletter`, THE RESULT OF VALIDATING "newsletter""""
+            AS `premium`,    JUST `premium`
+            AS `newsletter`, JUST `newsletter`"""
 
-        return """IF THE USER CREATION HAS FAILED, RETURN THE FAILURE;
-            IF NOT, RETURN THE USER."""
+        return """VALIDATE THE RESULT OF `result` WITH USER-SPECIFIC VALIDATORS
+            (ONLY IF IT IS NOT A FAILURE)"""
     }
