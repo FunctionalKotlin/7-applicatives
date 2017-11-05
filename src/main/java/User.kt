@@ -2,6 +2,7 @@
 
 import Validators.Name
 import Validators.Newsletter
+import Validators.Password
 import Validators.Premium
 
 data class User(
@@ -19,10 +20,11 @@ fun createUser(
     name: String, password: String, premium: Boolean,
     newsletter: Boolean): Result<User, UserError> {
         val result: Result<User, UserError> =
-            Name(name).map(::User.curried())
+            Password(password)
+                .apply(Name(name)
+                    .map(::User.curried()))
 
-            """AS `password`,   THE RESULT OF VALIDATING "password"
-            AS `premium`,    pure(premium)
+            """AS `premium`,    pure(premium)
             AS `newsletter`, pure(newsletter)"""
 
         return result.flatMap(Premium or Newsletter)
