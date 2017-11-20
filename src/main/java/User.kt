@@ -19,7 +19,7 @@ enum class UserError {
 fun createUser(
     name: String, password: String, premium: Boolean,
     newsletter: Boolean): Result<User, UserError> =
-        ::User.curried() map
+        pure(::User.curried()) ap
             Name(name) ap
             Password(password) ap
             pure(premium) ap

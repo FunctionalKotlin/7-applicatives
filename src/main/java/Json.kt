@@ -27,7 +27,7 @@ inline fun <reified A: Any> JsonObject
 }
 
 fun JsonObject.toUser(): Result<User, ParseError> =
-    ::User.curried() map
+    pure(::User.curried()) ap
         getValue("username") ap
         getValue("password") ap
         getValue("premium") ap

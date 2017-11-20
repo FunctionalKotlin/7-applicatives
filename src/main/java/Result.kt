@@ -25,9 +25,6 @@ fun <A, E> Result<A, E>.ifSuccess(execute: (A) -> Unit) {
 
 fun <A> pure(a: A): Result<A, Nothing> = Success(a)
 
-infix fun <A, B, E> ((A) -> B).map(
-    result: Result<A, E>): Result<B, E> = result.map(this)
-
 infix fun <A, B, E> Result<(A) -> B, E>.ap(
     result: Result<A, E>): Result<B, E> = result.apply(this)
 
